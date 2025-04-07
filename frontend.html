@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Teacher-Student Resource Hub</title>
+    <style>
+        body { font-family: Arial, sans-serif; text-align: center; padding: 20px; }
+        #uploadSection, #resourceList { margin: 20px auto; max-width: 600px; }
+        .resource { margin: 10px 0; padding: 10px; border: 1px solid #ccc; }
+    </style>
+</head>
+<body>
+    <h1>Teacher-Student Resource Hub</h1>
+    <div id="uploadSection">
+        <h3>Upload a Resource</h3>
+        <input type="file" id="resourceInput">
+        <button onclick="uploadResource()">Upload</button>
+    </div>
+    <div id="resourceList">
+        <h3>Available Resources</h3>
+        <ul id="resources"></ul>
+    </div>
+
+    <script>
+        function uploadResource() {
+            const input = document.getElementById('resourceInput');
+            if (input.files.length > 0) {
+                const file = input.files[0];
+                const fileURL = URL.createObjectURL(file);
+                
+                const listItem = document.createElement('li');
+                listItem.className = 'resource';
+                listItem.innerHTML = `<a href="${fileURL}" target="_blank">${file.name}</a>`;
+                document.getElementById('resources').appendChild(listItem);
+            }
+        }
+    </script>
+</body>
+</html>
