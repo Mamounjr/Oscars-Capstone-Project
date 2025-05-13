@@ -28,6 +28,9 @@ jobs:
       security-events: write
       actions: read
       contents: read
+      statuses: write  
+      pull-requests: read  
+
     # Steps represent a sequence of tasks that will be executed as part of the job
     steps:
     # Runs a single command using the runners shell
