@@ -1,0 +1,155 @@
+/* sidebar.css */
+
+.sidebar {
+    width: 30%;
+    background-color: #f4f4f4;
+    padding: 20px;
+    text-align: center;
+    position: fixed;
+    top: 0;
+    left: 0;
+    height: 100vh; /* full height of the viewport */
+    width: 220px;
+}
+
+.sidebar img {
+    width: 100px;
+    height: 100px;
+    border-radius: 50%;
+    object-fit: cover;
+    margin-bottom: 15px;
+}
+
+.sidebar p {
+    font-weight: bold;
+}
+
+.block1 {
+    height: 200px;
+    border-radius: 5px;
+    box-shadow: 2px 0 5px rgba(0,0,0,0.1);
+    background-color: rgb(0, 0, 40);
+}
+
+.block1 p {
+    color: white;
+    font-size: 50px;
+    padding: 50px;
+}
+
+.block {
+    height: 400px;
+    background-color: rgb(242, 242, 242);
+    padding-bottom: 20px;
+    border-radius: 5px;
+    box-shadow: 2px 0 5px rgba(0,0,0,0.1);
+}
+
+.bod {
+    width: 80%;
+    padding-right: 15px;
+    padding-bottom: 30px;
+    position: absolute;
+    right: 0px;
+}
+
+#sports {
+    background-image: url("track.jpg");
+    background-repeat: no-repeat;
+    background-size: cover;
+    border-radius: 5px;
+    opacity: 80%;
+    transition: opacity 0.3s ease;
+    
+}
+
+#music {
+    background-image: url("organ.jpg");
+    background-repeat: no-repeat;
+    background-size: cover;
+    border-radius: 5px;
+    opacity: 80%;
+    transition: opacity 0.3s ease;
+    
+}
+
+#science {
+    background-image: url("science.jpg");
+    background-size: cover;
+    opacity: 80%;
+    transition: opacity 0.3s ease;
+}
+
+#art {
+    background-image: url("art.jpg");
+    background-size: cover;
+    opacity: 80%;
+    transition: opacity 0.3s ease;
+}
+
+#sports h1{
+    font-style: bold;
+    font-size: xx-large;
+    color: white;
+    padding: 25px;
+    background-color: rgb(0, 0, 40);
+}
+
+#music h1{
+    font-style: bold;
+    font-size: xx-large;
+    color: white;
+    padding: 25px;
+    background-color: rgb(0, 0, 40);
+}
+
+#science h1{
+    font-style: bold;
+    font-size: xx-large;
+    color: white;
+    padding: 25px;
+    background-color: rgb(0, 0, 40);
+}
+
+#art h1{
+    font-style: bold;
+    font-size: xx-large;
+    color: white;
+    padding: 25px;
+    background-color: rgb(0, 0, 40);
+}
+
+#sports:hover{
+    opacity: 100%;
+}
+
+#music:hover{
+    opacity: 100%;
+}
+
+#science:hover{
+    opacity: 100%;
+}
+
+#art:hover{
+    opacity: 100%;
+}
+
+.sidebar li {
+    padding: 15px;
+    margin: 10px;
+    border-radius: 5px;
+    text-align: left;
+    font-family: 'Lucida Sans', 'Lucida Sans Regular', 'Lucida Grande', 'Lucida Sans Unicode', Geneva, Verdana, sans-serif;
+}
+
+.sidebar li:hover {
+    background-color: rgb(2, 2, 54);
+    color: white;
+    cursor: pointer;
+}
+
+#uploadSection {
+    border-radius: 5px;
+    box-shadow: 2px 0 5px rgba(0,0,0,0.1);
+}

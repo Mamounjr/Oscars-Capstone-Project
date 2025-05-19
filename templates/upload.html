@@ -1,0 +1,96 @@
+<!DOCTYPE html>
+<html>
+    <head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+    <title>Teacher-Student Resource Hub</title>
+
+    <!-- Link to external sidebar CSS -->
+    <link rel="stylesheet" href="index.css">
+
+
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            display: flex;
+            min-height: 100vh;
+        }
+
+        .main {
+            flex: 1;
+            padding: 20px;
+            text-align: center;
+        }
+
+        #uploadSection, #resourceList {
+            margin: 20px auto;
+            max-width: 600px;
+        }
+
+        .resource {
+            margin: 10px 0;
+            padding: 10px;
+            border: 1px solid #ccc;
+        }
+    </style>
+    
+</head>
+
+<body>
+
+    <div class="main">
+        <h1 style="background-color: rgb(2, 2, 54); padding: 10px; color: white;">Resource Upload <i class="fa fa-upload" aria-hidden="true"></i></h1>
+
+        <p><a href="{{ url_for('logout') }}"><button>Logout</button></a></p>
+
+        <div id="uploadSection">
+            <h3 style="padding-top: 10px;">Art Upload</h3>
+            <input type="file" id="resourceInput">
+            <button onclick="uploadResource()" style="margin-bottom: 10px;">Upload</button>
+        </div>
+
+        <div id="uploadSection">
+            <h3 style="padding-top: 10px;">Sports Upload</h3>
+            <input type="file" id="resourceInput">
+            <button onclick="uploadResource()" style="margin-bottom: 10px;">Upload</button>
+        </div>
+
+        <div id="uploadSection">
+            <h3 style="padding-top: 10px;">Music Upload</h3>
+            <input type="file" id="resourceInput">
+            <button onclick="uploadResource()" style="margin-bottom: 10px;">Upload</button>
+        </div>
+
+        <div id="uploadSection">
+            <h3 style="padding-top: 10px;">Science Upload</h3>
+            <input type="file" id="resourceInput">
+            <button onclick="uploadResource()" style="margin-bottom: 10px;">Upload</button>
+        </div>
+
+        <div id="resourceList">
+            <h3>Available Resources</h3>
+            <ul id="resources"></ul>
+        </div>
+    </div>    
+
+
+    <script>
+        function uploadResource() {
+            const input = document.getElementById('resourceInput');
+            if (input.files.length > 0) {
+                const file = input.files[0];
+                const fileURL = URL.createObjectURL(file);
+                
+                const listItem = document.createElement('li');
+                listItem.className = 'resource';
+                listItem.innerHTML = `<a href="${fileURL}" target="_blank">${file.name}</a>`;
+                document.getElementById('resources').appendChild(listItem);
+            }
+        }
+
+
+    </script>
+</body>
+</html>
