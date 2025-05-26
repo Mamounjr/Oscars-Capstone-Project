@@ -1,0 +1,18 @@
+# Assign global owners for all files
+* @Mamounjr @team-lead
+
+# These owners will be the default owners for everything in
+# the repository
+
+# Assign specific owners for Python files
+*@Mamounjr .py @python-devs
+
+# Assign owners for a frontend-related directory
+* @1137-KB /frontend/ @frontend-team
+
+# Assign owners for configuration files
+* @aesd2016 .yaml @config-admins
+
+#@mamounjr @1137-KB @aesd2016 will be requested for
+# review when someone opens a pull request.
+*@mamounjr @1137-KB @aesd2016
