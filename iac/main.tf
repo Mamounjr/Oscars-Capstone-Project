@@ -3,25 +3,24 @@ provider "aws" {
 }
 
 module "network" {
-  source = "./iac/modules/network"
+  source = "./modules/network"
 }
 
 module "autoscaling" {
-  source             = "./iac/modules/autoscaling"
+  source             = "./modules/autoscaling"
   public_subnet_ids  = module.network.public_subnet_ids
   private_subnet_ids = module.network.private_subnet_ids
   public_sg_id       = module.network.public_sg_id
   private_sg_id      = module.network.private_sg_id
-  ec2_profile_name   = module.iam.ec2_profile_name
 }
 
 module "loadbalancer" {
-  source         = "./iac/modules/loadbalancer"
+  source         = "./modules/loadbalancer"
   public_subnets = module.network.public_subnet_ids
   vpc_id         = module.network.vpc_id
   public_sg_id   = module.network.public_sg_id
 }
 
 module "s3" {
-  source = "./iac/modules/s3"
+  source = "./modules/s3"
 }
