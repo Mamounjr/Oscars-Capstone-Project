@@ -1,8 +1,4 @@
 # modules/loadbalancer/main.tf
-variable "public_subnets" { type = list(string) }
-variable "vpc_id" { type = string }
-variable "public_sg_id" { type = string }
-
 resource "aws_lb" "alb" {
   name               = "main-alb"
   load_balancer_type = "application"
