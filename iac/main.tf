@@ -3,11 +3,11 @@ provider "aws" {
 }
 
 module "network" {
-  source = "./modules/network"
+  source = "./iac/modules/network"
 }
 
 module "autoscaling" {
-  source             = "./modules/autoscaling"
+  source             = "./iac/modules/autoscaling"
   public_subnet_ids  = module.network.public_subnet_ids
   private_subnet_ids = module.network.private_subnet_ids
   public_sg_id       = module.network.public_sg_id
@@ -16,12 +16,12 @@ module "autoscaling" {
 }
 
 module "loadbalancer" {
-  source         = "./modules/loadbalancer"
+  source         = "./iac/modules/loadbalancer"
   public_subnets = module.network.public_subnet_ids
   vpc_id         = module.network.vpc_id
   public_sg_id   = module.network.public_sg_id
 }
 
 module "s3" {
-  source = "./modules/s3"
+  source = "./iac/modules/s3"
 }
