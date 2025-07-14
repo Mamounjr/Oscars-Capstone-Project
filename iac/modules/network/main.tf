@@ -6,7 +6,7 @@ resource "aws_vpc" "main" {
   tags = { Name = "main-vpc" }
 }
 
-resource "aws_subnet" "public"
+resource "aws_subnet" "public" {
   count                   = 2
   vpc_id                  = aws_vpc.main.id
   cidr_block              = cidrsubnet("10.0.0.0/16", 8, count.index)
@@ -50,7 +50,7 @@ resource "aws_eip" "nat" {
 resource "aws_nat_gateway" "nat" {
   count         = 2
   allocation_id = aws_eip.nat[count.index].id
-  subnet_id     = aws_subnet.public[count.index].id
+  subnet_id     = aws_subnet.private[count.index].id
   tags          = { Name = "nat-${count.index}" }
 }
 
