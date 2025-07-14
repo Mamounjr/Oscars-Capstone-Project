@@ -14,7 +14,3 @@ variable "public_sg_id" {
 variable "private_sg_id" {
   type = string
 }
-
-variable "ec2_profile_name" {
-  type = string
-}
