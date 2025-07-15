@@ -39,12 +39,22 @@
         <hr>
         <div>
 
-    <div class="gallery">
-        <a target="_blank" href="pdf.jpeg">
-        <img src="pdf.jpeg" alt="Cinque Terre" width="600" height="400">
-        </a>
-        <div class="desc">Add a description of the image here</div>
+{% for book in books %}
+<div class="gallery">
+    <a target="_blank" href="{{ url_for('static', filename=book[4]) }}">
+        <img src="{{ url_for('static', filename=book[4]) }}" alt="{{ book[1] }}">
+    </a>
+    <div class="desc">
+        <h3>{{ book[1] }}</h3> <!-- Book Title -->
+        <p><strong>Author:</strong> {{ book[2] }}</p> <!-- Author -->
+        <p>{{ book[3] }}</p> <!-- Description -->
+        <a href="{{ url_for('static', filename=book[5]) }}" target="_blank"> View PDF</a>
+
     </div>
+</div>
+{% endfor %}
+
+
 
     <div class="gallery">
   <a target="_blank" href="pdf.jpeg">
