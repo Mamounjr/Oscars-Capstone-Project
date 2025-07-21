@@ -1,10 +1,14 @@
-FROM python:3.12
-
+# Build stage
+FROM python:3.9-slim as builder
 WORKDIR /app
-COPY . .
+COPY 
+requirements.txt .
+RUN pip install --user -r requirements.txt
 
-RUN pip install --no-cache-dir -r requirements.txt
-
-EXPOSE 5000
+# Runtime stage
+FROM python:3.9-slim
+WORKDIR /app
+COPY --from=builder /root/.local /root/.local
+COPY templates/ .
+ENV PATH=/root/.local/bin:$PATH
 CMD ["python", "app.py"]
-# End of Dockerfile
