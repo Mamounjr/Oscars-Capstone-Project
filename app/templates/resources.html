@@ -1,0 +1,115 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Teacher-Student Resource Hub</title>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+  <link rel="stylesheet" href="index.css">
+
+  <style>
+    div.gallery {
+      margin: 5px;
+      border: 1px solid #ccc;
+      float: left;
+      width: 180px;
+    }
+
+    div.gallery:hover {
+      border: 1px solid #777;
+    }
+
+    div.gallery img {
+      width: 100%;
+      height: 150px;
+      object-fit: cover;
+    }
+
+    div.desc {
+      padding: 10px;
+      text-align: center;
+      font-size: 14px;
+    }
+
+    li {
+      list-style-type: none;
+    }
+
+    .container {
+      padding: 15px;
+    }
+
+    h1 {
+      font-size: xx-large;
+      background-color: rgb(1, 1, 51);
+      padding: 10px;
+      border-radius: 5px;
+      color: white;
+    }
+
+    #resourceList::after {
+      content: "";
+      display: table;
+      clear: both;
+    }
+  </style>
+</head>
+
+<body>
+  <div class="container">
+    <h1 id="categoryTitle">Resources</h1>
+    <hr>
+    <ul id="resourceList"></ul>
+  </div>
+
+  <script>
+    const BASE_URL = "http://localhost:5000";
+
+    function getCategoryFromUrl() {
+      const params = new URLSearchParams(window.location.search);
+      return params.get('category');
+    }
+
+    async function fetchResources(category) {
+      try {
+        const response = await fetch(`${BASE_URL}/resources/${category}`);
+        const resources = await response.json();
+
+        const title = document.getElementById("categoryTitle");
+        title.innerText = `${category.charAt(0).toUpperCase() + category.slice(1)} Resources`;
+
+        const list = document.getElementById("resourceList");
+        list.innerHTML = "";
+
+        resources.forEach(resource => {
+          const item = document.createElement("li");
+          item.innerHTML = `
+            <div class="gallery">
+              <a href="${resource.pdf_url}" target="_blank">
+                <img src="${resource.cover_url}" alt="Cover Image">
+              </a>
+              <div class="desc">
+                <strong>${resource.title}</strong><br>
+                ${resource.author} (${resource.year})<br>
+                <a href="${resource.pdf_url}" target="_blank">View PDF</a>
+              </div>
+            </div>
+          `;
+          list.appendChild(item);
+        });
+      } catch (err) {
+        console.error("Failed to load resources:", err);
+      }
+    }
+
+    window.addEventListener("DOMContentLoaded", () => {
+      const category = getCategoryFromUrl();
+      if (category) {
+        fetchResources(category);
+      } else {
+        document.getElementById("categoryTitle").innerText = "No category selected";
+      }
+    });
+  </script>
+</body>
+</html>

@@ -54,7 +54,7 @@
 }
 
 #sports {
-    background-image: url("track.jpg");
+    background-image: url("../images/track.jpg");
     background-repeat: no-repeat;
     background-size: cover;
     border-radius: 5px;
@@ -64,7 +64,7 @@
 }
 
 #music {
-    background-image: url("organ.jpg");
+    background-image: url("../images/organ.jpg");
     background-repeat: no-repeat;
     background-size: cover;
     border-radius: 5px;
@@ -74,14 +74,14 @@
 }
 
 #science {
-    background-image: url("science.jpg");
+    background-image: url("../images/science.jpg");
     background-size: cover;
     opacity: 80%;
     transition: opacity 0.3s ease;
 }
 
 #art {
-    background-image: url("art.jpg");
+    background-image: url("../images/art.jpg");
     background-size: cover;
     opacity: 80%;
     transition: opacity 0.3s ease;
