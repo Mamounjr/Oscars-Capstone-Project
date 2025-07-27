@@ -5,3 +5,4 @@ Werkzeug==2.3.7
 pytest
 botocore
 python-dotenv
+gunicorn
