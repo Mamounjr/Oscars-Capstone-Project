@@ -18,3 +18,5 @@ override.tf.json
 
 # Sensitive or local-only secrets
 .terraform.lock.hcl
+
+.env
