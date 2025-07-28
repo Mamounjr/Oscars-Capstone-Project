@@ -44,7 +44,7 @@ jobs:
 
       - name: Login into Amazon ECR
         run: |
-          aws ecr get-login-password --region us-east-1 | docker login --username AWS --password-stdin <AWS_ACCOUNT_ID>.dkr.ecr.us-east-1.amazonaws.com
+          aws ecr get-login-password --region us-east-1 | docker login --username AWS --password-stdin 195275674689.dkr.ecr.us-east-1.amazonaws.com
 
       - name: Docker-compose build
         run: |
@@ -52,8 +52,8 @@ jobs:
 
       - name: Push image to ECR
         run: |
-          docker tag my-app:latest <AWS_ACCOUNT_ID>.dkr.ecr.us-east-1.amazonaws.com/my-app:latest
-          docker push <AWS_ACCOUNT_ID>.dkr.ecr.us-east-1.amazonaws.com/my-app:latest
+          docker tag my-app:latest 195275674689.dkr.ecr.us-east-1.amazonaws.com/my-app:latest
+          docker push 195275674689.dkr.ecr.us-east-1.amazonaws.com/my-app:latest
 
   deploy-to-ecs:
     name: Deploy to ECS Fargate
