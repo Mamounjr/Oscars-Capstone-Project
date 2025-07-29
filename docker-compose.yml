@@ -5,8 +5,8 @@ services:
     build:
       context: .
     container_name: flask-app
-    expose:
-      - 5000
+    ports:
+      - "5000:5000"
     networks:
       - app-network
     volumes: 
