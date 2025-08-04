@@ -3,8 +3,9 @@ import io
 import json
 import uuid
 import pytest
-from app import app, s3, BUCKET_NAME, METADATA_FOLDER
+from app import app, s3, METADATA_FOLDER
 from botocore.stub import Stubber
+from unittest.mock import patch
 
 @pytest.fixture
 def client():
@@ -16,38 +17,12 @@ def s3_stub():
     with Stubber(s3) as stubber:
         yield stubber
 
-def test_upload_success(client, s3_stub):
+def test_upload_success(client):
     pdf_data = io.BytesIO(b"%PDF-1.4 test pdf content")
     cover_data = io.BytesIO(b"\x89PNG\r\n\x1a\n test image content")
-    
-    pdf_filename = f"{uuid.uuid4()}_test.pdf"
-    cover_filename = f"{uuid.uuid4()}_cover.png"
 
-    # Mock S3 upload and presigned URL generation
-    s3_stub.add_response("put_object", {}, {
-        "Bucket": BUCKET_NAME,
-        "Key": f"pdfs/{pdf_filename}",
-        "Body": pdf_data,
-        "ContentType": "application/pdf"
-    })
-
-    s3_stub.add_response("put_object", {}, {
-        "Bucket": BUCKET_NAME,
-        "Key": f"covers/{cover_filename}",
-        "Body": cover_data,
-        "ContentType": "image/png"
-    })
-
-    # Mock presigned URLs
-    s3_stub.add_response("get_object", {}, {
-        "Bucket": BUCKET_NAME,
-        "Key": f"pdfs/{pdf_filename}"
-    })
-
-    s3_stub.add_response("get_object", {}, {
-        "Bucket": BUCKET_NAME,
-        "Key": f"covers/{cover_filename}"
-    })
+    # Set fixed UUID for predictability
+    fixed_uuid = uuid.UUID("12345678-1234-5678-1234-567812345678")
 
     data = {
         "title": "Test Title",
@@ -55,17 +30,27 @@ def test_upload_success(client, s3_stub):
         "year": "2025",
         "category": "music"
     }
+
     files = {
         "pdf": (pdf_data, "test.pdf"),
         "cover": (cover_data, "cover.png")
     }
 
-    response = client.post('/upload', data={**data, **files}, content_type='multipart/form-data')
-    assert response.status_code == 200
-    body = response.get_json()
-    assert body["message"] == "Upload successful"
-    assert "pdf_url" in body["data"]
-    assert "cover_url" in body["data"]
+    with patch("app.uuid.uuid4", return_value=fixed_uuid), \
+         patch("app.s3.upload_fileobj") as mock_upload, \
+         patch("app.s3.generate_presigned_url", return_value="https://fake-url.com/fake.pdf"):
+
+        response = client.post('/upload', data={**data, **files}, content_type='multipart/form-data')
+
+        print("RESPONSE STATUS:", response.status_code)
+        print("RESPONSE BODY:", response.data.decode())
+
+        assert response.status_code == 200
+        body = response.get_json()
+        assert body["message"] == "Upload successful"
+        assert "pdf_url" in body["data"]
+        assert "cover_url" in body["data"]
+        assert mock_upload.call_count == 2
 
 def test_upload_missing_fields(client):
     response = client.post('/upload', data={}, content_type='multipart/form-data')
