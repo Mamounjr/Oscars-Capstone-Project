@@ -8,7 +8,7 @@
   "containerDefinitions": [
     {
       "name": "flask-app",
-      "image": "002573266411.dkr.ecr.us-east-1.amazonaws.com/my-app:latest",
+      "image": "195275674689.dkr.ecr.us-east-2.amazonaws.com/teacher-student-hub:latest",
       "essential": true,
       "portMappings": [
         {
@@ -19,7 +19,7 @@
     },
     {
       "name": "nginx-proxy",
-      "image": "nginx:alpine",
+      "image": "195275674689.dkr.ecr.us-east-2.amazonaws.com/nginx-proxy:latest",
       "essential": true,
       "portMappings": [
         {
