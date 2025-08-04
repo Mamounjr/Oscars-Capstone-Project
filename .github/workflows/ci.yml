@@ -12,10 +12,10 @@ jobs:
 
     steps:
       - name: Checkout repository
-        uses: action/checkout@v2
+        uses: actions/checkout@v2
 
       - name: Python set up
-        uses: action/setup-python@v2
+        uses: actions/setup-python@v2
         with: 
           python-version: '3.12'
 
@@ -33,7 +33,7 @@ jobs:
 
     steps:
       - name: Checkout repository
-      - uses: action/checkout@v2
+      - uses: actions/checkout@v2
 
       - name: Configure AWS Credentials
         uses: aws-actions/configure-aws-credentials@v3
