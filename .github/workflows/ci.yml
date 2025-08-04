@@ -52,13 +52,13 @@ jobs:
 
       - name: Push flask image to ECR
         run: |
-          docker tag flask-app:latest 195275674689.dkr.ecr.us-east-2.amazonaws.com/teacher-student-hub
-          docker push 195275674689.dkr.ecr.us-east-2.amazonaws.com/teacher-student-hub
+          docker tag flask-app:latest 195275674689.dkr.ecr.us-east-2.amazonaws.com/teacher-student-hub:latest
+          docker push 195275674689.dkr.ecr.us-east-2.amazonaws.com/teacher-student-hub:latest
 
       - name: Push nginx image to ECR
         run: |
-          docker tag nginx-proxy:latest 195275674689.dkr.ecr.us-east-2.amazonaws.com/teacher-student-hub
-          docker push 195275674689.dkr.ecr.us-east-2.amazonaws.com/teacher-student-hub
+          docker tag nginx-proxy:latest 195275674689.dkr.ecr.us-east-2.amazonaws.com/nginx-proxy:latest
+          docker push 195275674689.dkr.ecr.us-east-2.amazonaws.com/nginx-proxy:latest
 
   deploy-to-ecs:
     name: Deploy to ECS Fargate
@@ -69,13 +69,24 @@ jobs:
       - name: Checkout repo
         uses: actions/checkout@v4
 
+      - name: Configure AWS credentials
+        uses: aws-actions/configure-aws-credentials@v3
+        with:
+          aws-access-key-id: ${{ secrets.AWS_ACCESS_KEY_ID }}
+          aws-secret-access-key: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
+          aws-region: us-east-2
+
+      - name: Login to Amazon ECR
+        id: login-ecr
+        uses: aws-actions/amazon-ecr-login@v1
+
       - name: Fill in new image ID in ECS task definition
         id: flask-task-def
         uses: aws-actions/amazon-ecs-render-task-definition@v1
         with:
           task-definition: ecs-task-definition.json
           container-name: flask-app
-          image: ${{ steps.login-ecr.outputs.registry }}/teacher-student-hub
+          image: ${{ steps.login-ecr.outputs.registry }}/teacher-student-hub:latest
 
       - name: Fill in new image ID in ECS task definition
         id: nginx-task-def
@@ -83,7 +94,7 @@ jobs:
         with:
           task-definition: ${{ steps.flask-task-def.outputs.task-definition }}
           container-name: nginx-proxy
-          image: ${{ steps.login-ecr.outputs.registry }}/teacher-student-hub
+          image: ${{ steps.login-ecr.outputs.registry }}/nginx-proxy:latest
 
       - name: Deploy to ECS Fargate
         uses: aws-actions/amazon-ecs-deploy-task-definition@v1
