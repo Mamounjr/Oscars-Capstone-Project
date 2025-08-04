@@ -69,8 +69,8 @@ jobs:
         uses: aws-actions/amazon-ecs-render-task-definition@v1
         with:
           task-definition: ecs-task-definition.json
-          container-name: your-container-name
-          image: ${{ steps.login-ecr.outputs.registry }}/${{ env.ECR_REPOSITORY }}:${{ github.sha }}
+          container-name: flask
+          image: ${{ steps.login-ecr.outputs.registry }}/${{ oscars-project-repo }}:${{ github.sha }}
 
       - name: Deploy to ECS Fargate
         uses: aws-actions/amazon-ecs-deploy-task-definition@v1
