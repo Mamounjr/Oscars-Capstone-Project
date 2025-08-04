@@ -91,6 +91,3 @@ jobs:
           cluster: teacher-student-cluster-1
           service: teacher-student-service
           task-definition: ${{ steps.nginx-task-def.outputs.task-definition }}
-
-
-
