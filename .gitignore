@@ -20,3 +20,11 @@ override.tf.json
 .terraform.lock.hcl
 
 .env
+
+# === AWS CLI & SDK ===
+.aws/
+*.pem
+*.key
+*.crt
+*.csr
+*.log
