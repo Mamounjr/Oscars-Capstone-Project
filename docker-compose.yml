@@ -5,6 +5,7 @@ services:
     build:
       context: .
       dockerfile: app/Dockerfile
+    image: flask-app
     container_name: flask-app
     ports:
       - "5000:5000"
@@ -19,6 +20,7 @@ services:
     build:
       context: .
       dockerfile: nginx/Dockerfile
+    image: nginx-proxy
     container_name: nginx-proxy
     ports:
       - "80:80"

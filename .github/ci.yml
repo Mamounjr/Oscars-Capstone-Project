@@ -40,20 +40,25 @@ jobs:
         with:
           aws-access-key-id: ${{ secrets.AWS_ACCESS_KEY_ID }}
           aws-secret-access-key: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
-          aws-region: us-east-1
+          aws-region: us-east-2
 
       - name: Login into Amazon ECR
         run: |
-          aws ecr get-login-password --region us-east-1 | docker login --username AWS --password-stdin 195275674689.dkr.ecr.us-east-1.amazonaws.com
+          aws ecr get-login-password --region us-east-2 | docker login --username AWS --password-stdin 195275674689.dkr.ecr.us-east-2.amazonaws.com
 
       - name: Docker-compose build
         run: |
           docker-compose build
 
-      - name: Push image to ECR
+      - name: Push flask image to ECR
         run: |
-          docker tag my-app:latest 195275674689.dkr.ecr.us-east-1.amazonaws.com/my-app:latest
-          docker push 195275674689.dkr.ecr.us-east-1.amazonaws.com/my-app:latest
+          docker tag flask-app:latest 195275674689.dkr.ecr.us-east-2.amazonaws.com/teacher-student-hub
+          docker push 195275674689.dkr.ecr.us-east-2.amazonaws.com/teacher-student-hub
+
+      - name: Push nginx image to ECR
+        run: |
+          docker tag nginx-proxy:latest 195275674689.dkr.ecr.us-east-2.amazonaws.com/teacher-student-hub
+          docker push 195275674689.dkr.ecr.us-east-2.amazonaws.com/teacher-student-hub
 
   deploy-to-ecs:
     name: Deploy to ECS Fargate
@@ -69,12 +74,23 @@ jobs:
         uses: aws-actions/amazon-ecs-render-task-definition@v1
         with:
           task-definition: ecs-task-definition.json
-          container-name: flask
-          image: ${{ steps.login-ecr.outputs.registry }}/${{ oscars-project-repo }}:${{ github.sha }}
+          container-name: flask-app
+          image: ${{ steps.login-ecr.outputs.registry }}/teacher-student-hub
+
+      - name: Fill in new image ID in ECS task definition
+        id: task-def
+        uses: aws-actions/amazon-ecs-render-task-definition@v1
+        with:
+          task-definition: ecs-task-definition.json
+          container-name: flask-app
+          image: ${{ steps.login-ecr.outputs.registry }}/teacher-student-hub
 
       - name: Deploy to ECS Fargate
         uses: aws-actions/amazon-ecs-deploy-task-definition@v1
         with:
-          cluster: your-cluster-name
-          service: your-service-name
+          cluster: teacher-student-cluster-1
+          service: teacher-student-service
           task-definition: ${{ steps.task-def.outputs.task-definition }}
+
+
+
