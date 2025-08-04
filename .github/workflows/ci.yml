@@ -107,5 +107,5 @@ jobs:
         uses: aws-actions/amazon-ecs-deploy-task-definition@v1
         with:
           cluster: teacher-student-cluster-1
-          service: teacher-student-service
+          service: oscars-project-family-service-b2trdmxj
           task-definition: ${{ steps.nginx-task-def.outputs.task-definition }}
