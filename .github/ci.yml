@@ -70,7 +70,7 @@ jobs:
         uses: actions/checkout@v4
 
       - name: Fill in new image ID in ECS task definition
-        id: task-def
+        id: flask-task-def
         uses: aws-actions/amazon-ecs-render-task-definition@v1
         with:
           task-definition: ecs-task-definition.json
@@ -78,11 +78,11 @@ jobs:
           image: ${{ steps.login-ecr.outputs.registry }}/teacher-student-hub
 
       - name: Fill in new image ID in ECS task definition
-        id: task-def
+        id: nginx-task-def
         uses: aws-actions/amazon-ecs-render-task-definition@v1
         with:
-          task-definition: ecs-task-definition.json
-          container-name: flask-app
+          task-definition: ${{ steps.flask-task-def.outputs.task-definition }}
+          container-name: nginx-proxy
           image: ${{ steps.login-ecr.outputs.registry }}/teacher-student-hub
 
       - name: Deploy to ECS Fargate
@@ -90,7 +90,7 @@ jobs:
         with:
           cluster: teacher-student-cluster-1
           service: teacher-student-service
-          task-definition: ${{ steps.task-def.outputs.task-definition }}
+          task-definition: ${{ steps.nginx-task-def.outputs.task-definition }}
 
 
 
