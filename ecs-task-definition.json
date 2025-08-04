@@ -1,4 +1,5 @@
 {
+  "executionRoleArn": "arn:aws:iam::195275674689:role/ecsTaskExecutionRole",
   "family": "oscars-project-family",
   "networkMode": "awsvpc",
   "requiresCompatibilities": ["FARGATE"],
@@ -6,7 +7,7 @@
   "memory": "512",
   "containerDefinitions": [
     {
-      "name": "flask",
+      "name": "flask-app",
       "image": "002573266411.dkr.ecr.us-east-1.amazonaws.com/my-app:latest",
       "essential": true,
       "portMappings": [
@@ -17,7 +18,7 @@
       ]
     },
     {
-      "name": "nginx",
+      "name": "nginx-proxy",
       "image": "nginx:alpine",
       "essential": true,
       "portMappings": [
