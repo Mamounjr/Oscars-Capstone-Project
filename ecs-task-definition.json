@@ -1,4 +1,5 @@
 {
+  "executionRoleArn": "arn:aws:iam::195275674689:role/ecsTaskExecutionRole",
   "family": "oscars-project-family",
   "networkMode": "awsvpc",
   "requiresCompatibilities": ["FARGATE"],
