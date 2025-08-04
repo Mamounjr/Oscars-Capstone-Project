@@ -46,6 +46,13 @@ jobs:
         run: |
           aws ecr get-login-password --region us-east-2 | docker login --username AWS --password-stdin 195275674689.dkr.ecr.us-east-2.amazonaws.com
 
+      - name: Install Docker Compose
+        run: |
+          sudo curl -L "https://github.com/docker/compose/releases/download/v2.27.0/docker-compose-$(uname -s)-$(uname -m)" -o /usr/local/bin/docker-compose
+          sudo chmod +x /usr/local/bin/docker-compose
+          docker-compose --version
+
+
       - name: Docker-compose build
         run: |
           docker-compose build
