@@ -111,7 +111,7 @@
         formData.append("category", category);
 
         try {
-            const response = await fetch("http://localhost:5000/upload", {
+            const response = await fetch("http://library-lb-565589078.us-east-2.elb.amazonaws.com/upload", {
                 method: "POST",
                 body: formData
             });
