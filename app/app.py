@@ -6,7 +6,7 @@ import json
 import uuid
 import os
 
-app = Flask(__name__, static_folder='static', template_folder='templates')
+app = Flask(__name__)
 CORS(app)
 
 s3 = boto3.client('s3')
