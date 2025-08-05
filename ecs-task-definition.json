@@ -4,12 +4,12 @@
   "networkMode": "awsvpc",
   "requiresCompatibilities": ["FARGATE"],
   "cpu": "512",
-  "memory": "1024",
+  "memory": "2048",
   "containerDefinitions": [
     {
       "name": "flask-app",
       "image": "195275674689.dkr.ecr.us-east-2.amazonaws.com/teacher-student-hub:latest",
-      "memory": 512,
+      "memory": 1024,
       "essential": true,
       "portMappings": [
         {
@@ -21,6 +21,7 @@
     {
       "name": "nginx-proxy",
       "image": "195275674689.dkr.ecr.us-east-2.amazonaws.com/nginx-proxy:latest",
+      "memory": 1024,
       "essential": true,
       "portMappings": [
         {
