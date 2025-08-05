@@ -9,6 +9,7 @@
     {
       "name": "flask-app",
       "image": "195275674689.dkr.ecr.us-east-2.amazonaws.com/teacher-student-hub:latest",
+      "memory": 512,
       "essential": true,
       "portMappings": [
         {
