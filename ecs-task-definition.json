@@ -3,13 +3,12 @@
   "family": "oscars-project-family",
   "networkMode": "awsvpc",
   "requiresCompatibilities": ["FARGATE"],
+  "cpu": 512,
+  "memory" 1024: 
   "containerDefinitions": [
     {
       "name": "flask-app",
       "image": "195275674689.dkr.ecr.us-east-2.amazonaws.com/teacher-student-hub:latest",
-      "cpu": 128,
-      "memoryReservation": 256,
-      "memory": 512,
       "essential": true,
       "portMappings": [
         {
@@ -21,9 +20,6 @@
     {
       "name": "nginx-proxy",
       "image": "195275674689.dkr.ecr.us-east-2.amazonaws.com/nginx-proxy:latest",
-      "cpu": 64,
-      "memoryReservation": 128,
-      "memory": 256,
       "essential": true,
       "portMappings": [
         {
