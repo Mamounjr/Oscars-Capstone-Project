@@ -107,5 +107,5 @@ jobs:
         uses: aws-actions/amazon-ecs-deploy-task-definition@v1
         with:
           cluster: library-app-cluster
-          service: oscars-project-family
+          service: oscars-project-family-service1
           task-definition: ${{ steps.nginx-task-def.outputs.task-definition }}
