@@ -10,7 +10,7 @@ app = Flask(__name__)
 CORS(app)
 
 s3 = boto3.client('s3')
-BUCKET_NAME = 'oscars-project-bucket-new'
+BUCKET_NAME = 'oscars-project'
 
 # Local folders for uploads
 UPLOAD_FOLDER = "uploads"
