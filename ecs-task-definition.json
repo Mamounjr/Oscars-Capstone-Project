@@ -1,5 +1,6 @@
 {
   "executionRoleArn": "arn:aws:iam::195275674689:role/ecsTaskExecutionRole",
+  "taskRoleArn": "arn:aws:iam::195275674689:role/Upload-role",
   "family": "oscars-project-family",
   "networkMode": "awsvpc",
   "requiresCompatibilities": ["FARGATE"],
