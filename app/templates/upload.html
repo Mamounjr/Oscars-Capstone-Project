@@ -126,6 +126,7 @@
 
             if (response.ok) {
                 alert("Upload successful!");
+                location.reload();
             } else {
                 alert("Upload failed: " + (result.message || "Unknown error"));
             }
